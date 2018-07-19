@@ -6,7 +6,7 @@ install:
 
 script:
   -pytest
-  -coverage run --source=app -m pytest && coverage report
+  -coverage run --source=app -m pytest 
 
 after_success:
   -coveralls
