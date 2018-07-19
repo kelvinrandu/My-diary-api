@@ -2,8 +2,9 @@ language: python
 sudo: enabled
 python:
   - 3.6
-install:
-  -pip install -r requirements.txt
+before_script:
+  - easy_install distribute
+  - pip install -r requirements.txtt
 
 script:
   -pytest
