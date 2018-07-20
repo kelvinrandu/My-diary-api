@@ -1,15 +1,9 @@
 language: python
-sudo: enabled
+
 python:
-  - 3.6
+  - "3.6"
+
 install:
-  -pip install -r requirements.txt
-
+  - pip install -r requirements.txt
 script:
-  -pytest
-  -coverage run --source=app -m pytest 
-
-after_success:
-  -coveralls
-after_success:
-  coveralls
+  - python app-test.py
