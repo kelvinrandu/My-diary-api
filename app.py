@@ -51,7 +51,7 @@ def edit_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
     me = request.get_json(['tittle'])
     entry[0]['Body'] = me['Body']    
-    return jsonify({'result': Entries })
+    return 'edit successful'
 
 if __name__ == '__main__':
     app.run(debug=True)
