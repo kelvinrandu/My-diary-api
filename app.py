@@ -53,6 +53,13 @@ def delete_entry(id):
     Entries.remove(entry[0])
     return jsonify({ "status" : "true" })
 
+#route editing an entry
+@app.route('/api/v1/entries/<int:id>', methods=['PUT'])
+def edit_entry(id):
+    entry = [entry for entry in Entries if entry['id'] == id]
+    me = request.get_json(['tittle'])
+    entry[0]['Body'] = me['Body']    
+    return 'edit successful'
 
 if __name__ == '__main__':
     app.run(debug=True)
