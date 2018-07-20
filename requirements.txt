@@ -5,3 +5,4 @@ pylint
 coverage
 pyjwt
 yapf
+gunicorn==19.9.0
