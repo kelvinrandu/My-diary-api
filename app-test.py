@@ -22,7 +22,7 @@ class BasicTestCase(unittest.TestCase):
     def test_post_entry(self):
         tester = app.test_client(self)
         response = tester.get('/', content_type='html/text')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
         
 
 
