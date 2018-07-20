@@ -46,6 +46,13 @@ def post_entry():
 def get_entries():
     return jsonify({'Entries': Entries})
 
+#get each entry
+@app.route('/api/v1/entries/<int:id>')
+def get_each_entry(id):
+    entry = [entry for entry in Entries if entry['id'] == id]
+  
+    return jsonify({'data': entry})
+
 #delete entry route
 @app.route('/api/v1/entries/<int:id>', methods=['DELETE'])
 def delete_entry(id):

@@ -19,6 +19,13 @@ class BasicTestCase(unittest.TestCase):
         response = tester.get('/api/v1/entries', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
+#test for get all entries
+    def test_get_each(self):
+        tester = app.test_client(self)
+        response = tester.get('/api/v1/entries/1', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
+
 # #test for post endpoint
     def test_post(self):
         tester = app.test_client(self)
