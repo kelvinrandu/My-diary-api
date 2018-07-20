@@ -27,6 +27,14 @@ class BasicTestCase(unittest.TestCase):
 
 
 
+#delete entry endpoint test
+    def test_delete(self):
+        tester = app.test_client(self)
+        response = tester.delete('/api/v1/entries/1', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
+
+
 if __name__ == '__main__':
     unittest.main()
     

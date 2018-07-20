@@ -3,6 +3,7 @@ from flask import Flask,jsonify,request
 
 app = Flask(__name__)
 
+
 #Dictionary to temporily store/hold diary entries 
 Entries = [
 		{
@@ -44,6 +45,14 @@ def post_entry():
 @app.route('/api/v1/entries', methods=['GET'])
 def get_entries():
     return jsonify({'Entries': Entries})
+
+#delete entry route
+@app.route('/api/v1/entries/<int:id>', methods=['DELETE'])
+def delete_entry(id):
+    entry = [entry for entry in Entries if entry['id'] == id]
+    Entries.remove(entry[0])
+    return jsonify({ "status" : "true" })
+
 
 if __name__ == '__main__':
     app.run(debug=True)
