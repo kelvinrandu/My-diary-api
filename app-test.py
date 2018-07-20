@@ -21,7 +21,13 @@ class BasicTestCase(unittest.TestCase):
 #test for post an entry
     def test_post_entry(self):
         tester = app.test_client(self)
-        response = tester.get('/', content_type='html/text')
+        response = tester.post('/api/v1/entries', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
+#test for update an entry
+    def test_edit_entry(self):
+        tester = app.test_client(self)
+        response = tester.put('/api/v1/entries/<int:id>', content_type='html/text')
         self.assertEqual(response.status_code, 200)
         
 
