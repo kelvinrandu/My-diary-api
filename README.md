@@ -27,6 +27,6 @@ Postman was the main application used in test the endpoints using the routes pro
 - modify a single diary entry (PUT) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
 - delete an entry from my diary (DELETE)https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
 
-## SCREENSHOTS
+
 ## RUN TEST
 - python app-test.py
