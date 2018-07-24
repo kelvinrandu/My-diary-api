@@ -7,6 +7,7 @@ The api endpoints are meant to do the following
 - GET   ( fetch entries from my dictionary)
 - DELETE (delete an  entry from my dictionary)
 - PUT    (modify an entry from my dictionary)
+
 ## REQUIREMENTS
 Minimum requirements needed to run this application include;
 - pip
@@ -27,3 +28,5 @@ Postman was the main application used in test the endpoints using the routes pro
 - delete an entry from my diary (DELETE)https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
 
 ## SCREENSHOTS
+## RUN TEST
+- python app-test.py
