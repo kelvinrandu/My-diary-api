@@ -33,9 +33,6 @@ class BasicTestCase(unittest.TestCase):
         tester = app.test_client(self)
        
         response = tester.post("/api/v1/entries",  data = {"id":1,"title":"goal", "description":"Croatia won with 4 goals"})
-        # self.assertEqual(response.json(), {'hello': 'world'})
-        # results = json.loads(response.data)
-        # self.assertEqual(data["status"],  "entry created successfully" )
         self.assertEqual(response.status_code, 400)
         
 
