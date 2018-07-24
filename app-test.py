@@ -1,7 +1,6 @@
 from app import app 
 
 import unittest
-import requests
 import json
 import sys
 
@@ -32,8 +31,8 @@ class BasicTestCase(unittest.TestCase):
 # #test for post endpoint
     def test_post(self):
         tester = app.test_client(self)
-        data = {"id":1,"title":"goal", "description":"Croatia won with 4 goals"}
-        response = tester.post("/api/v1/entries", data = data , content_type= "application/json" )
+       
+        response = tester.post("/api/v1/entries",  data = {"id":1,"title":"goal", "description":"Croatia won with 4 goals"})
         # self.assertEqual(response.json(), {'hello': 'world'})
         # results = json.loads(response.data)
         # self.assertEqual(data["status"],  "entry created successfully" )
