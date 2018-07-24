@@ -10,8 +10,8 @@ The api endpoints are meant to do the following
 
 ## REQUIREMENTS
 Minimum requirements needed to run this application include;
-- [pip](https://github.com/kelvinrandu/My-diary-api/tree/master)
-- [python3](http://www.python-pip-install.com/)
+- [pip](https://packaging.python.org/tutorials/installing-packages/)
+- [python3](https://www.python.org/getit/)
 
 ## RUNNING THE APPLICATION
 - clone [this](https://github.com/kelvinrandu/My-diary-api/tree/master) repository
@@ -20,6 +20,8 @@ Minimum requirements needed to run this application include;
 ``` $ source .env ```
 - install dependencies needed for the project to run
 ``` $ pip install -r requirements.txt ```
+- install flask
+``` $ pip install flask```
 - run the application
 ``` $ python app.py ```
 ## TESTING THE APP

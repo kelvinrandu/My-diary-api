@@ -51,14 +51,14 @@ def get_entries():
 def get_each_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
   
-    return jsonify({'data': entry})
+    return jsonify({'entry': entry})
 
 #delete entry route
 @app.route('/api/v1/entries/<int:id>', methods=['DELETE'])
 def delete_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
     Entries.remove(entry[0])
-    return jsonify({ "status" : "true" })
+    return jsonify({ "status" : " entry deleted successfully" })
 
 #route editing an entry
 @app.route('/api/v1/entries/<int:id>', methods=['PUT'])
@@ -66,7 +66,7 @@ def edit_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
     me = request.get_json(['tittle'])
     entry[0]['Body'] = me['Body']    
-    return 'edit successful'
+    return jsonify({ "status" : "entry modified successfully" })
 
 if __name__ == '__main__':
     app.run(debug=True)
