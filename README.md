@@ -26,15 +26,15 @@ Minimum requirements needed to run this application include;
 Postman was the main application used in test the endpoints using the routes provided below
 ans a snip of the response if request is successful
 - fetch all  diary entries  (GET) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries
-https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/get%20all.png
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/get%20all.png)
 - fetch a single diary entry (GET) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
-https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20%20%20get%20each.png
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20%20%20get%20each.png)
 - post an entry into my diary(POST) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries
-https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20entry.png
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20entry.png)
 - modify a single diary entry (PUT) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
-https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/modify.png
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/modify.png)
 - delete an entry from my diary (DELETE)https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
-https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/delete.png
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/delete.png)
 
 
 ## RUN TEST
