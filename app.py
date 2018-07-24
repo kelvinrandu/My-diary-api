@@ -37,7 +37,7 @@ def hello():
 def post_entry():
     data = request.get_json(["data"])
     entry = data
-    return jsonify({ 'status': 'entry created successfully'}), 201
+    return jsonify({ 'message': 'entry created successfully'}), 201
 
 
 
@@ -58,7 +58,7 @@ def get_each_entry(id):
 def delete_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
     Entries.remove(entry[0])
-    return jsonify({ "status" : " entry deleted successfully" })
+    return jsonify({ "message" : " entry deleted successfully" })
 
 #route editing an entry
 @app.route('/api/v1/entries/<int:id>', methods=['PUT'])
@@ -66,7 +66,7 @@ def edit_entry(id):
     entry = [entry for entry in Entries if entry['id'] == id]
     me = request.get_json(['tittle'])
     entry[0]['Body'] = me['Body']    
-    return jsonify({ "status" : "entry modified successfully" })
+    return jsonify({ "message" : "entry modified successfully" }), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
