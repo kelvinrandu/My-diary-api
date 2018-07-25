@@ -1,5 +1,6 @@
 # My-diary-api
 A restful app intended to communicate using api endpoints
+[![Build Status](https://travis-ci.org/kelvinrandu/My-diary-api.svg?branch=develop)](https://travis-ci.org/kelvinrandu/My-diary-api)
 ## DESCRIPTION
 My-diary-api is a restful api intended to communicate with a front end of your choice using various api endpoints.
 The api endpoints are meant to do the following
