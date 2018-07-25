@@ -5,10 +5,10 @@ A restful app intended to communicate using api endpoints
 ## DESCRIPTION
 My-diary-api is a restful api intended to communicate with a front end of your choice using various api endpoints.
 The api endpoints are meant to do the following
-- POST (post entries to my dictionary)
-- GET   ( fetch entries from my dictionary)
-- DELETE (delete an  entry from my dictionary)
-- PUT    (modify an entry from my dictionary)
+- post entries to my dictionary
+- fetch entries from my dictionary
+- delete an  entry from my dictionary
+- modify an entry from my dictionary
 
 ## REQUIREMENTS
 Minimum requirements needed to run this application include;
