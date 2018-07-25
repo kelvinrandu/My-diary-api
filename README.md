@@ -1,4 +1,6 @@
-# My-diary-api
+[![Coverage Status](https://coveralls.io/repos/github/kelvinrandu/My-diary-api/badge.svg?branch=develop)](https://coveralls.io/github/kelvinrandu/My-diary-api?branch=develop)
+[![Build Status](https://travis-ci.org/kelvinrandu/My-diary-api.svg?branch=develop)](https://travis-ci.org/kelvinrandu/My-diary-api)
+# My-diary-api  
 A restful app intended to communicate using api endpoints
 ## DESCRIPTION
 My-diary-api is a restful api intended to communicate with a front end of your choice using various api endpoints.
@@ -24,18 +26,28 @@ Minimum requirements needed to run this application include;
 ``` $ pip install flask```
 - run the application
 ``` $ python app.py ```
+## API ROUTES
+
+| Methods        | Url          | Description |
+| ------------- |:-------------:| -----:|
+| GET     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries           |  Fetches all diary entries |           
+| GET     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |  Fetches a single diary entry    |
+| POST    | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries           |  Creates a new diary entry       |
+| PUT     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |   Modifies an entry              |
+| DELETE  | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |   Deletes an entry from my Diary |
+
 ## TESTING THE APP
 Postman was the main application used in test the endpoints using the routes provided below
 ans a snip of the response if request is successful
-- fetch all  diary entries  (GET) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries
+- fetch all  diary entries
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/get%20all.png)
-- fetch a single diary entry (GET) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
+- fetch a single diary entry
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20%20%20get%20each.png)
-- post an entry into my diary(POST) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries
+- post an entry into my diary 
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20entry.png)
-- modify a single diary entry (PUT) https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
+- modify a single diary entry  
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/modify.png)
-- delete an entry from my diary (DELETE)https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>
+- delete an entry from my diary
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/delete.png)
 
 
