@@ -1,72 +1,23 @@
 
 from flask import Flask,jsonify,request
+from flask_restful import Api
 
 app = Flask(__name__)
+api = Api(app)
+
+import models, resources
 
 
-#Dictionary to temporily store/hold diary entries 
-Entries = [
-		{
-		 	'id': 1,
-			'title':' Article one',
-			'body':'This represents the body of the first article',
-			'create_date':'04-25-2018'
-		},
-		{
-			'id': 2,
-			'title':' Article two',
-			'body':'This represents the body of the second article',
-			'create_date':'04-25-2018'
-		},
-		{
-		 	'id': 3,
-			'title':' Article three',
-			'body':'This represents the body of the third article',
-			'create_date':'04-25-2018'
-		}
-
-	]
-
-#test route
-@app.route('/')
-def hello():
-    return 'Hello, World!'
-
-#post entry endpoint
-@app.route('/api/v1/entries', methods=['POST'])
-def post_entry():
-    data = request.get_json(["data"])
-    entry = data
-    return jsonify({ 'message': 'entry created successfully'}), 201
+#resources
+api.add_resource(resources.UserRegistration, '/registration')
+api.add_resource(resources.UserLogin, '/login')
+api.add_resource(resources.UserLogoutAccess, '/logout/access')
+api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
+api.add_resource(resources.TokenRefresh, '/token/refresh')
+api.add_resource(resources.AllUsers, '/users')
+api.add_resource(resources.SecretResource, '/api/v1/entries')
 
 
-
-#route getting all entries
-@app.route('/api/v1/entries', methods=['GET'])
-def get_entries():
-    return jsonify({'Entries': Entries})
-
-#get each entry
-@app.route('/api/v1/entries/<int:id>')
-def get_each_entry(id):
-    entry = [entry for entry in Entries if entry['id'] == id]
-  
-    return jsonify({'entry': entry})
-
-#delete entry route
-@app.route('/api/v1/entries/<int:id>', methods=['DELETE'])
-def delete_entry(id):
-    entry = [entry for entry in Entries if entry['id'] == id]
-    Entries.remove(entry[0])
-    return jsonify({ "message" : " entry deleted successfully" })
-
-#route editing an entry
-@app.route('/api/v1/entries/<int:id>', methods=['PUT'])
-def edit_entry(id):
-    entry = [entry for entry in Entries if entry['id'] == id]
-    me = request.get_json(['tittle'])
-    entry[0]['Body'] = me['Body']    
-    return jsonify({ "message" : "entry modified successfully" }), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
