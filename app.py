@@ -9,13 +9,18 @@ import models, resources
 
 
 #resources
-api.add_resource(resources.UserRegistration, '/registration')
-api.add_resource(resources.UserLogin, '/login')
-api.add_resource(resources.UserLogoutAccess, '/logout/access')
-api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
-api.add_resource(resources.TokenRefresh, '/token/refresh')
-api.add_resource(resources.AllUsers, '/users')
-api.add_resource(resources.SecretResource, '/api/v1/entries')
+api.add_resource(resources.UserRegistration, '/api/v1/register')
+api.add_resource(resources.UserLogin, '/api/v1/login')
+api.add_resource(resources.UserLogoutAccess, '/api/v1/logout/access')
+api.add_resource(resources.UserLogoutRefresh, '/api/v1/logout/refresh')
+api.add_resource(resources.TokenRefresh, '/api/v1/token/refresh')
+api.add_resource(resources.AllUsers, '/api/v1/users')
+api.add_resource(resources.SecretResource, '/api/v1/secret')
+api.add_resource(resources.AllEntries, '/api/v1/entries')
+api.add_resource(resources.EachEntry, '/api/v1/entries/<int:id>')
+api.add_resource(resources.PostEntry, '/api/v1/entries')
+api.add_resource(resources.EditEntry, '/api/v1/entries/<int:id>')
+api.add_resource(resources.DeleteEntry, '/api/v1/entries/<int:id>')
 
 
 

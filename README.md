@@ -1,6 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/github/kelvinrandu/My-diary-api/badge.svg?branch=develop)](https://coveralls.io/github/kelvinrandu/My-diary-api?branch=develop)
-[![Build Status](https://travis-ci.org/kelvinrandu/My-diary-api.svg?branch=develop)](https://travis-ci.org/kelvinrandu/My-diary-api)
-# My-diary-api  
+
+# My-diary-api-v1
 A restful app intended to communicate using api endpoints
 ## DESCRIPTION
 My-diary-api is a restful api intended to communicate with a front end of your choice using various api endpoints.
@@ -53,4 +52,3 @@ ans a snip of the response if request is successful
 
 ## RUN TEST
 To run unitests type the code below in your terminal in your root folder
-``` $ python app-test.py ```
