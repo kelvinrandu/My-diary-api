@@ -1,14 +1,14 @@
 
-from flask import Flask,jsonify,request
+from flask import Flask, jsonify,request
 from flask_restful import Api
 
 app = Flask(__name__)
 api = Api(app)
 
-import models, resources
-
+from . import resources
 
 #resources
+
 api.add_resource(resources.UserRegistration, '/api/v1/register')
 api.add_resource(resources.UserLogin, '/api/v1/login')
 api.add_resource(resources.UserLogoutAccess, '/api/v1/logout/access')
