@@ -1,46 +1,39 @@
 from flask_restful import Resource, reqparse
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request, make_response
+# from model import User
+from .database import DatabaseConnect
+from psycopg2 import sql
+
+db = DatabaseConnect()
 
 parser = reqparse.RequestParser()
-parser.add_argument('username', help = 'This field cannot be blank', required = True)
-parser.add_argument('password', help = 'This field cannot be blank', required = True)
-
-
-#Dictionary to temporily store/hold diary entries 
-Entries = [
-		{
-		 	'id': 1,
-			'title':' Article one',
-			'body':'This represents the body of the first article',
-			'create_date':'04-25-2018'
-		},
-		{
-			'id': 2,
-			'title':' Article two',
-			'body':'This represents the body of the second article',
-			'create_date':'04-25-2018'
-		},
-		{
-		 	'id': 3,
-			'title':' Article three',
-			'body':'This represents the body of the third article',
-			'create_date':'04-25-2018'
-		}
-
-	]
-
+# parser.add_argument('username', help = 'This field cannot be blank', required = True)
+# parser.add_argument('password', help = 'This field cannot be blank', required = True)
+# parser.add_argument('email', help = 'This field cannot be blank', required = True)
 
 class UserRegistration(Resource):
     def post(self):
         data = parser.parse_args()
-        # return {'message': 'User registration'}
-        return data
+        
+        db.conn.cursor().execute(
+        """INSERT INTO users (name, email, password) 
+            VALUES ('kelvin', 'ke5n@m.com', 'hdsghks')"""
+        )
+
+        response = {'message': 'user created'}
+        
+        return response
 
 
 class UserLogin(Resource):
     def post(self):
         data = parser.parse_args()
         # return {'message': 'User login'}
+        id = self.
+        self.cursor.execute(
+            sql.SQL("select * from users where id={}").format(sql.Placeholder()), 
+            ([id])
+        )
         return data
 
 
@@ -84,19 +77,52 @@ class EachEntry(Resource):
 
 # post an  entry
 class PostEntry(Resource):
+    def __init__(self):
+        self.cursor = db.cursor        
+
     def post(self):
-        data = request.get_json(["data"])
-        entry = data
-        return jsonify({ 'message': 'entry created successfully'}), 201
+        data = request.json
+
+        self.cursor.execute(
+            sql.SQL("insert into entries(title, body) values({}) returning id").format(
+                sql.SQL(', ').join(sql.Placeholder() * 2)
+            ), ([data['title'], data['body']])
+        )
+
+        id = self.cursor.fetchone()['id']
+
+        self.cursor.execute(
+            sql.SQL("select * from entries where id={}").format(sql.Placeholder()), 
+            ([id])
+        )
+        
+        entry = self.cursor.fetchone()
+
+        return make_response(jsonify({'entry': entry}))
    
 
 # modify an  entry
 class EditEntry(Resource):
     def put(self):
-        entry = [entry for entry in Entries if entry['id'] == id]
-        me = request.get_json(['tittle'])
-        entry[0]['Body'] = me['Body']    
-        return jsonify({ "message" : "entry modified successfully" }), 200
+        data = request.json
+        id = data['id']
+
+        result = self.cursor.execute(
+            sql.SQL("select * from entries where id={}").format(sql.Placeholder()), 
+            ([id])
+        )
+
+        if result:
+
+            self.cursor.execute(
+                sql.SQL("update table entries set {} values({}) returning id").format(
+                sql.SQL(', ').join(sql.Placeholder() * 2)
+                 ), ([data['title'], data['body']])
+            )
+            return jsonify({ "message" : " entry updated successfully" })
+        
+
+
 
 # delete an  entry
 class DeleteEntry(Resource):
