@@ -6,7 +6,7 @@
 
 # db = DatabaseConnect()
 
-# class User(db.Model):
+# class User():
 
 #     __tablename__ = 'users'
 #     id = db.Column(db.Interger, primary_key=True)
