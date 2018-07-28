@@ -3,6 +3,7 @@ from flask import Flask,jsonify,request, make_response
 # from model import User
 from .database import DatabaseConnect
 from psycopg2 import sql
+from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
 db = DatabaseConnect()
 
@@ -12,15 +13,35 @@ parser = reqparse.RequestParser()
 # parser.add_argument('email', help = 'This field cannot be blank', required = True)
 
 class UserRegistration(Resource):
+
+    def __init__(self):
+        self.cursor = db.cursor 
+
     def post(self):
-        data = parser.parse_args()
+
+        # data = parser.parse_args()
+        data = request.json
+        password= '12345'
+
         
-        db.conn.cursor().execute(
-        """INSERT INTO users (name, email, password) 
-            VALUES ('kelvin', 'ke5n@m.com', 'hdsghks')"""
+        self.cursor.execute(
+            """
+            INSERT INTO users (name, email,password)
+            VALUES (%s , %s, %s)
+            """,
+            (data['name'], data['email'], data['password'])
         )
 
-        response = {'message': 'user created'}
+        id = self.cursor.fetchone()['id']
+
+        self.cursor.execute(
+            sql.SQL("select * from users where id={}").format(sql.Placeholder()), 
+            ([id])
+        )
+        
+        entry = self.cursor.fetchone()
+    
+        response = {'message': entry}
         
         return response
 
@@ -29,11 +50,14 @@ class UserLogin(Resource):
     def post(self):
         data = parser.parse_args()
         # return {'message': 'User login'}
-        id = self.
+        # login logic
         self.cursor.execute(
             sql.SQL("select * from users where id={}").format(sql.Placeholder()), 
             ([id])
         )
+        #end login logic here
+
+        
         return data
 
 
@@ -66,8 +90,15 @@ class SecretResource(Resource):
 
 # fetch all diary entries
 class AllEntries(Resource):
+    def __init__(self,user_id,entry):
+        self.cursor = db.cursor 
+
+
+
     def get(self):
-        return jsonify({'Entries': Entries})
+        cur.execute("""SELECT * FROM entries WHERE user_id={} """.format(user_id))
+        entry = cur.fetchone()
+        return jsonify({'Entries': entry})
 
 # fetch each diary entry
 class EachEntry(Resource):
