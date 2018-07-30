@@ -24,7 +24,7 @@ Minimum requirements needed to run this application include;
 - install flask
 ``` $ pip install flask```
 - run the application
-``` $ python app.py ```
+``` $ flask run ```
 ## API ROUTES
 
 | Methods        | Url          | Description |
@@ -37,17 +37,17 @@ Minimum requirements needed to run this application include;
 
 ## TESTING THE APP
 Postman was the main application used in test the endpoints using the routes provided below
-ans a snip of the response if request is successful
+ans a snip of the response upon successful request 
 - fetch all  diary entries
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/get%20all.png)
+
 - fetch a single diary entry
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20%20%20get%20each.png)
+
 - post an entry into my diary 
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post%20entry.png)
+
 - modify a single diary entry  
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/modify.png)
+
 - delete an entry from my diary
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/delete.png)
+
 
 
 ## RUN TEST
