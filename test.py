@@ -1,12 +1,33 @@
 import psycopg2
 import os
+from psycopg2 import sql
 
-# start here
+
+# basic script of testing connection to database
+
 try:
     # connect to database
     conn = psycopg2.connect(
-        "dbname=mydiary user=randu password=1234 host=localhost")
-    print("database connected")
+        "dbname=mydiary user=postgres password=1234 host=localhost")
+        
+
+
+except:
+    print("database not connected")
+
+user_name =  'makedkna'
+user_email = 'randukelvin@gmail.com'
+user_password = '1234'
+table_name = 'users'
+cur = conn.cursor() 
+
+
+try:
+    
+    cur.execute("""SELECT * FROM users WHERE email='{}' """.format(user_email))
+    rows = cur.fetchone()
+    print(rows)
+
 
 
 except:
@@ -14,11 +35,5 @@ except:
 
 
 
-# end here
 
 
-
-# def create_user:
-#     conn.cursor().execute(
-#         """INSERT INTO users (user_name, email,created_at)
-#         VALUES ('k1ika', 'ke5n@m.com', '1-9-2011')""")
