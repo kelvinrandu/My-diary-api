@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash
 from flask import make_response, jsonify
 from .database import DatabaseConnect
 from psycopg2 import sql
+from psycopg2 import connect
 
 
 db = DatabaseConnect()
@@ -16,33 +17,35 @@ class User():
         self.username = username
         self.email = email
         self.password = password 
-        cur = conn.cursor()
+        self.cursor = db.cursor
         
  
 
-    @classmethod
-    def save_to_db(cls,self):
-        cur = conn.cursor()
+
+    def save_to_db(self):
         try:
-            cur.execute(
+            self.cursor.execute(
                 """
                 INSERT INTO users(name, email, password)
-                VALUES('me','memem','1234')""",
+                VALUES(%s,%s,%s)""",
                 (self.username, self.email,self.password))
-            conn.commit()
+                       
+            return 'register succesful'
         
 
         except:
-            print "I can't SELECT from users"
+            print "ran into trouble registering you"
 
 
     # check if email address exists in database 
     @staticmethod
     def find_by_email(email):
+   
 
-        cur.execute("""SELECT * FROM users WHERE email='{}' """.format(user_email))
-        conn.commit()
-        rows = cur.fetchone()
+        db.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
+        # db.cursor.commit()
+        rows = db.cursor.fetchone()
+        
         return rows
 
 
@@ -57,83 +60,85 @@ class User():
     def verify_hash(password, hash):
         return 2
 
+
+
 class Entry():
 
     def __init__(self):
-        self.cursor = conn.cursor()
+        self.title = title
+        self.body = body
+        self.user_id= user_id
+        self.cursor = db.cursor
+        
 
 # save to database
     @classmethod
     def create_entry(cls,title, body):
+        #attempt to enter entry into database
+        try:
+            self.cursor.execute(
+                """
+                INSERT INTO entrie(title, body, user_id)
+                VALUES(%s,%s,%s)""",
+                (self.title, self.body,self.user_id))
+                       
+            return 'entry added successfuly'
         
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
+
+        except:
+            print "ran into trouble adding entry "
 
     @staticmethod
     def get_all(user_id):
         
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
+        db.cursor.execute("""SELECT * FROM entries WHERE user_id='{}' """.format(user_id))
+        # db.cursor.commit()
+        entries = db.cursor.fetchone()
+        
+        return entries
 
 
     @staticmethod
     def get_each(user_id,entry_id):
+                
+        db.cursor.execute("""SELECT * FROM entries WHERE id='{}' """.format(entry_id))
+        # db.cursor.commit()
+        entry = db.cursor.fetchone()
         
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
-
-    @staticmethod
-    def post_entry(user_id,entry_id):
-        
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
+        return entry
 
 
-    @staticmethod
-    def edit_entry(user_id,entry_id):
+    # @staticmethod
+    # def edit_entry(user_id,entry_id):
         
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
+    #     self.cursor.execute(
+    #         """
+    #         INSERT INTO entries (name, email,password)
+    #         VALUES (%s , %s, %s)
+    #         """,
+    #         (da, data['email'], data['password'])
+    #     )
+    #     return 'entry saved'
 
-    @staticmethod
-    def delete_entry(user_id,entry_id):
+    # @staticmethod
+    # def delete_entry(user_id,entry_id):
         
-        self.cursor.execute(
-            """
-            INSERT INTO entries (name, email,password)
-            VALUES (%s , %s, %s)
-            """,
-            (da, data['email'], data['password'])
-        )
-        return 'entry saved'
+    #     self.cursor.execute(
+    #         """
+    #         INSERT INTO entries (name, email,password)
+    #         VALUES (%s , %s, %s)
+    #         """,
+    #         (da, data['email'], data['password'])
+    #     )
+    #     return 'entry saved'
+
+class RevokedTokenModel():
+    
+    def add(self):
+
+    
+    @classmethod
+    def is_jti_blacklisted(cls, jti):
+
+
 
