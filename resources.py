@@ -46,12 +46,12 @@ class UserRegistration(Resource):
         # attempt creating a new user through respective model
         try:
             new_user.save_to_db()
-            access_token = create_access_token(identity = user_name)
-            refresh_token = create_refresh_token(identity = user_name)
+            # access_token = create_access_token(identity = user_name)
+            # refresh_token = create_refresh_token(identity = user_name)
             return {
                 'message': 'User {} was created'.format(user_name),
-                'access_token': access_token,
-                'refresh_token': refresh_token
+                # 'access_token': access_token,
+                # 'refresh_token': refresh_token
                 }
 
         except:
@@ -86,8 +86,7 @@ class UserLogin(Resource):
             refresh_token = create_refresh_token(identity = current_user['name'])
             return {
                 'message': 'Logged in as {}'.format(current_user['name']),
-                'access_token': access_token,
-                'refresh_token': refresh_token
+
                 }
         else:
             return {'message': 'Wrong credentials'}
@@ -110,7 +109,7 @@ class UserLogoutAccess(Resource):
 class UserLogoutRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
-       jti = get_raw_jwt()['jti']
+        jti = get_raw_jwt()['jti']
         try:
             revoked_token = RevokedTokenModel(jti = jti)
             revoked_token.add()
@@ -160,22 +159,7 @@ class PostEntry(Resource):
 
         data = request.json
 
-        self.cursor.execute(
-            sql.SQL("insert into entries(title, body) values({}) returning id").format(
-                sql.SQL(', ').join(sql.Placeholder() * 2)
-            ), ([data['title'], data['body']])
-        )
-
-        id = self.cursor.fetchone()['id']
-
-        self.cursor.execute(
-            sql.SQL("select * from entries where id={}").format(sql.Placeholder()), 
-            ([id])
-        )
-        
-        entry = self.cursor.fetchone()
-
-        return make_response(jsonify({'entry': entry}))
+        return data
    
 
 # modify an  entry

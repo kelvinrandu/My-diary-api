@@ -1,33 +1,26 @@
 
-from flask import Flask,jsonify,request
+from flask import Flask, jsonify,request
 from flask_restful import Api
-from flask_jwt_extended import JWTManager
-
-app.config['JWT_SECRET_KEY'] = 'verysecretivestringthatshouldnotbeleaked'
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-
-
-jwt = JWTManager(app)
+from . import resources
+# from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 api = Api(app)
 
-import models, resources
 
-# @jwt.token_in_blacklist_loader
-# def check_if_token_in_blacklist(decrypted_token):
-#     jti = decrypted_token['jti']
-#     return user.is_jti_blacklisted(jti)
+# app.config['JWT_SECRET_KEY'] = 'ghasfksfgksrhskh',
+# app.config['JWT_BLACKLIST_ENABLED'] = True ,
+# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
+# jwt = JWTManager(app)
 
-#resources
+# resources
+
 api.add_resource(resources.UserRegistration, '/api/v1/register')
 api.add_resource(resources.UserLogin, '/api/v1/login')
 api.add_resource(resources.UserLogoutAccess, '/api/v1/logout/access')
 api.add_resource(resources.UserLogoutRefresh, '/api/v1/logout/refresh')
 api.add_resource(resources.TokenRefresh, '/api/v1/token/refresh')
-api.add_resource(resources.AllUsers, '/api/v1/users')
 api.add_resource(resources.SecretResource, '/api/v1/secret')
 api.add_resource(resources.AllEntries, '/api/v1/entries')
 api.add_resource(resources.EachEntry, '/api/v1/entries/<int:id>')

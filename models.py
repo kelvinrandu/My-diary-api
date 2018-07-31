@@ -34,7 +34,7 @@ class User():
         
 
         except:
-            print "ran into trouble registering you"
+            print ("ran into trouble registering you")
 
 
     # check if email address exists in database 
@@ -86,7 +86,7 @@ class Entry():
         
 
         except:
-            print "ran into trouble adding entry "
+            print ("ran into trouble adding entry ")
 
     @staticmethod
     def get_all(user_id):
@@ -132,13 +132,13 @@ class Entry():
     #     )
     #     return 'entry saved'
 
-class RevokedTokenModel():
+# class RevokedTokenModel():
     
-    def add(self):
+#     def add(self):
 
     
-    @classmethod
-    def is_jti_blacklisted(cls, jti):
+#     @classmethod
+#     def is_jti_blacklisted(cls, jti):
 
 
 
