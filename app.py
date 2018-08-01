@@ -1,7 +1,6 @@
-
 from flask import Flask, jsonify,request
 from flask_restful import Api
-from . import resources
+
 # from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
@@ -15,6 +14,7 @@ api = Api(app)
 # jwt = JWTManager(app)
 
 # resources
+import  models, resources
 
 api.add_resource(resources.UserRegistration, '/api/v1/register')
 api.add_resource(resources.UserLogin, '/api/v1/login')

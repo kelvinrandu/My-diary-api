@@ -1,29 +1,24 @@
 from flask_restful import Resource, reqparse,inputs
 from flask import Flask,jsonify,request, make_response
 # from model import User
-from .database import DatabaseConnect
-from .models import User
+from models import User
 from psycopg2 import sql
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
 
-db = DatabaseConnect()
+
 
 
 
 class UserRegistration(Resource):
 
-    def __init__(self):
-        self.cursor = db.cursor 
-        
-
     def post(self):
         # validate user input
         parser = reqparse.RequestParser()
-        parser.add_argument('username', help = 'Please input your user name', required = True,trim=True)
-        parser.add_argument('password', help = 'Please input password', required = True,trim=True)
-        parser.add_argument('confirm_password', help = 'Please input  confirm password', required = True,trim=True)
-        parser.add_argument('email', help = 'Please input a valid email' ,trim=True, type=inputs.regex(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"), required = True)
+        parser.add_argument('username', help = 'Please input your user name', required = True)
+        parser.add_argument('password', help = 'Please input password', required = True)
+        parser.add_argument('confirm_password', help = 'Please input  confirm password', required = True)
+        parser.add_argument('email', help = 'Please input a valid email' ,required = True)
 
         # store input in variable for easy manipulation    
         data = request.json
@@ -32,8 +27,13 @@ class UserRegistration(Resource):
         user_password = data['password']
         confirm_password = data['confirm_password']
 
+        # if not email:
+        #     return {
+        #         "error":"Invalud input"
+        #     }, 400
+
         # check if email already exists
-        if User.find_by_email(user_email) == 'email exists' :
+        if User.find_by_email(user_email) :
           return {'message': 'email {} already exists'. format(user_email)}
 
         new_user = User(
@@ -60,15 +60,13 @@ class UserRegistration(Resource):
 
 class UserLogin(Resource):
 
-    def __init__(self):
-        self.cursor = db.cursor 
 
     def post(self):
 
         # validate user input
         parser = reqparse.RequestParser()
-        parser.add_argument('password', help = 'Please input password', required = True,trim=True)
-        parser.add_argument('email', help = 'Please input a valid email' ,trim=True, type=inputs.regex(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"), required = True)
+        parser.add_argument('password', help = 'Please input password',required = True)
+        parser.add_argument('email', help = 'Please input a valid email',required = True)
  
         # upon succesful validation get user input and store in variable
         data = request.json
@@ -82,8 +80,8 @@ class UserLogin(Resource):
         
         # compare user's password and the hashed password in database
         if User.verify_hash(password, current_user['password']):
-            access_token = create_access_token(identity =  current_user['name'])
-            refresh_token = create_refresh_token(identity = current_user['name'])
+            # access_token = create_access_token(identity =  current_user['name'])
+            # refresh_token = create_refresh_token(identity = current_user['name'])
             return {
                 'message': 'Logged in as {}'.format(current_user['name']),
 
@@ -140,12 +138,13 @@ class AllEntries(Resource):
 
 
     def get(self):
-        cur.execute("""SELECT * FROM entries WHERE user_id={} """.format(user_id))
-        entry = cur.fetchone()
-        return jsonify({'Entries': entry})
+        return {'answer': 34 }
+ 
 
 # fetch each diary entry
 class EachEntry(Resource):
+
+
     def get(self):
         entry = [entry for entry in Entries if entry['id'] == id]
         return jsonify({'entry': entry})
@@ -165,22 +164,8 @@ class PostEntry(Resource):
 # modify an  entry
 class EditEntry(Resource):
     def put(self):
-        data = request.json
-        id = data['id']
 
-        result = self.cursor.execute(
-            sql.SQL("select * from entries where id={}").format(sql.Placeholder()), 
-            ([id])
-        )
-
-        if result:
-
-            self.cursor.execute(
-                sql.SQL("update table entries set {} values({}) returning id").format(
-                sql.SQL(', ').join(sql.Placeholder() * 2)
-                 ), ([data['title'], data['body']])
-            )
-            return jsonify({ "message" : " entry updated successfully" })
+        return jsonify({ "message" : " entry updated successfully" })
         
 
 
@@ -188,20 +173,6 @@ class EditEntry(Resource):
 # delete an  entry
 class DeleteEntry(Resource):
     def delete(self):
-        result = self.cursor.execute(
-            sql.SQL("select * from entries where id={}").format(sql.Placeholder()), 
-            ([id])
-        )
 
-        if result:
-
-            self.cursor.execute(
-                sql.SQL("update table entries set {} values({}) returning id").format(
-                sql.SQL(', ').join(sql.Placeholder() * 2)
-                 ), ([data['title'], data['body']])
-            )
-            return jsonify({ "message" : " entry updated successfully" })
-        entry = [entry for entry in Entries if entry['id'] == id]
-        Entries.remove(entry[0])
         return jsonify({ "message" : " entry deleted successfully" })
 

@@ -3,12 +3,13 @@ import datetime
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from flask import make_response, jsonify
-from .database import DatabaseConnect
+from database import DatabaseConnect
 from psycopg2 import sql
 from psycopg2 import connect
 
 
 db = DatabaseConnect()
+
 
 
 class User():
@@ -18,6 +19,7 @@ class User():
         self.email = email
         self.password = password 
         self.cursor = db.cursor
+  
         
  
 
@@ -29,6 +31,10 @@ class User():
                 INSERT INTO users(name, email, password)
                 VALUES(%s,%s,%s)""",
                 (self.username, self.email,self.password))
+
+            
+            
+ 
                        
             return 'register succesful'
         
@@ -45,6 +51,7 @@ class User():
         db.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         # db.cursor.commit()
         rows = db.cursor.fetchone()
+
         
         return rows
 
