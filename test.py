@@ -16,7 +16,7 @@ except:
     print("database not connected")
 
 user_name =  'makedkna'
-user_email = 'randukelvin@gmail.com'
+user_email = 'macharia@gmail.com'
 user_password = '1234'
 table_name = 'users'
 cur = conn.cursor() 
@@ -24,9 +24,13 @@ cur = conn.cursor()
 
 try:
     
-    cur.execute("""SELECT * FROM users WHERE email='{}' """.format(user_email))
-    rows = cur.fetchone()
-    print(rows)
+
+        db.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(user_email))
+        # db.cursor.commit()
+        rows = db.cursor.fetchone()
+        print("database connected")
+        
+    
 
 
 

@@ -6,3 +6,7 @@ class DatabaseConnect():
         self.conn = connect("dbname=mydiary user=postgres password=1234 host=localhost")
         self.cursor = self.conn.cursor(cursor_factory=extras.RealDictCursor)
         self.conn.autocommit = True
+
+    def CloseConnection(self):
+        
+        self.conn.close()
