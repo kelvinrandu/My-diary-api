@@ -1,4 +1,5 @@
 
+[![Build Status](https://travis-ci.org/kelvinrandu/My-diary-api.svg?branch=Develop-API-v1)](https://travis-ci.org/kelvinrandu/My-diary-api)
 # My-diary-api-v1
 A restful app intended to communicate using api endpoints
 ## DESCRIPTION
