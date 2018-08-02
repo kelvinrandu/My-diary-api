@@ -1,6 +1,7 @@
+from app import app
 import unittest
 import json
-from app import app
+
 from tests.base import BaseTests
 
 class SignUpTests(BaseTests):

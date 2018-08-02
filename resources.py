@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask import Flask,jsonify,request, make_response
+import re
 # from model import User
 from database import DatabaseConnect
 from models import User
@@ -15,7 +16,7 @@ class UserRegistration(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('username', required=True, help='Username cannot be blank', type=str)
-    parser.add_argument('email', required=True, help='Email cannot be blank', type=str)
+    parser.add_argument('email', required=True, help='Email cannot be blank')
     parser.add_argument('password', required=True, help='Password cannot be blank', type=str)
   
 
@@ -28,12 +29,26 @@ class UserRegistration(Resource):
         confirm_password = args.get('confirm_password')
         username = args.get('username').strip()
         email = args.get('email').strip()
+
+        # validate user input
+        email_format = re.compile(
+        r"(^[a-zA-Z0-9_.-]+@[a-zA-Z-]+\.[.a-zA-Z-]+$)")
+        username_format = re.compile(r"(^[A-Za-z0-9-]+$)")
+
         if not email:
             return {'message': 'email can not be empty'}
         if not password:
             return {'message': 'password cannot be empty'}
         if not username:
             return {'message': 'username cannot be empty'}
+        if len(password) < 6:
+            return {'message' : 'Password should be atleast 8 characters'}, 400
+        if not (re.match(email_format, email)):
+            return {'message' : 'Invalid email'}, 400
+        if not (re.match(username_format, username)):
+            return {'message' : 'Please input only characters and numbers'}, 400
+
+            
 
 
         # check if email already exists
@@ -189,7 +204,6 @@ class PostEntry(Resource):
         # attempt creating a new user through user model
         try:
 
-            rows=  Entry.get_each(entry_id)
 
             return {
                 'message': 'Entry {} was created'.format(title)

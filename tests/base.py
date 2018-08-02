@@ -1,6 +1,7 @@
+from app import app
 import unittest
 import json
-from app import app
+
 
 class BaseTests(unittest.TestCase):
     """ Tests validity of the login endpoint """
