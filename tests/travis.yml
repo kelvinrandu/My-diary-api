@@ -1,0 +1,24 @@
+language: python
+python:
+  - "3.5.2"
+# command to install dependencies
+install:
+  - "pip install -r requirements.txt"
+  - "pip install coveralls"
+
+before_script:
+  - psql -c "create database mydiary;" -U postgres
+  - psql -c "create user randu with password 'randu' createdb;" -U postgres
+  - python migrations
+
+# command to run tests
+script:
+  - pytest --cov
+
+branches:
+  only:
+  - Develop-API-v1
+  - master
+
+after_success:
+  - coveralls
