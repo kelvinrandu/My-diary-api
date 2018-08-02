@@ -38,12 +38,6 @@ class SignUpTests(BaseTests):
         response = self.client().post('/api/v1/register', data=data, content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_unmatching_passwords(self):
-        """ Test  for unmatching password and confirm password """
-        data = json.dumps({"email": "brayo@gmail.com", "username":"brayo",
-        "password": "123456478", "confirm_password":"1234564789"})
-        response = self.client().post('/api/v1/register', data=data, content_type='application/json')
-        self.assertEqual(response.status_code, 400)
 
     def test_invalid_email(self):
         """ Test for wrong email format """

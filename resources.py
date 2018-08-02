@@ -13,6 +13,7 @@ db = DatabaseConnect()
 
 
 class UserRegistration(Resource):
+    
 
     parser = reqparse.RequestParser()
     parser.add_argument('username', required=True, help='Username cannot be blank', type=str)
@@ -21,11 +22,13 @@ class UserRegistration(Resource):
   
 
     # handle create user logic
+
     def post(self):
+        
 
         # remove all whitespaces from input
         args =  UserRegistration.parser.parse_args()
-        password = args.get('password').strip()
+        password = args.get('password')
         confirm_password = args.get('confirm_password')
         username = args.get('username').strip()
         email = args.get('email').strip()
@@ -35,18 +38,19 @@ class UserRegistration(Resource):
         r"(^[a-zA-Z0-9_.-]+@[a-zA-Z-]+\.[.a-zA-Z-]+$)")
         username_format = re.compile(r"(^[A-Za-z0-9-]+$)")
 
+
         if not email:
-            return {'message': 'email can not be empty'}
+            return {'message': 'email can not be empty'},400
         if not password:
-            return {'message': 'password cannot be empty'}
+            return {'message': 'password cannot be empty'},400
         if not username:
-            return {'message': 'username cannot be empty'}
+            return {'message': 'username cannot be empty'},400
         if len(password) < 6:
-            return {'message' : 'Password should be atleast 8 characters'}, 400
+            return jsonify({'message' : 'Password should be atleast 6 characters'}), 400
         if not (re.match(email_format, email)):
             return {'message' : 'Invalid email'}, 400
         if not (re.match(username_format, username)):
-            return {'message' : 'Please input only characters and numbers'}, 400
+            return jsonify({'message' : 'Please input only characters and numbers'}), 400
 
             
 
@@ -94,9 +98,9 @@ class UserLogin(Resource):
         password = args.get('password').strip()
         email = args.get('email').strip()
         if not email:
-            return {'message': 'email can not be empty'}
+            return {'message': 'email can not be empty'},400
         if not password:
-            return {'message': 'password cannot be empty'}
+            return {'message': 'password cannot be empty'},400
 
 
         # upon successful validation check if user by the email exists in database and return response if not
@@ -161,6 +165,7 @@ class SecretResource(Resource):
 
 # fetch all diary entries
 class AllEntries(Resource):
+    @jwt_required
     
 
     def get(self):
@@ -187,7 +192,7 @@ class PostEntry(Resource):
     parser.add_argument('title', required=True, help='title cannot be blank', type=str)
     parser.add_argument('body', required=True, help='body cannot be blank', type=str)
     parser.add_argument('user_id', required=True, help='user cannot be blank', type=int)      
-
+    @jwt_required
     def post(self):
 
         args =  PostEntry.parser.parse_args()
@@ -203,6 +208,7 @@ class PostEntry(Resource):
         )
         # attempt creating a new user through user model
         try:
+            Entry.save_entry_to_db(title,body,user)
 
 
             return {
@@ -218,6 +224,7 @@ class PostEntry(Resource):
 
 # modify an  entry
 class EditEntry(Resource):
+    @jwt_required
     def put(self,entry_id):
 
         args =  PostEntry.parser.parse_args()
@@ -241,6 +248,7 @@ class EditEntry(Resource):
 
 # delete an  entry
 class DeleteEntry(Resource):
+    @jwt_required
     def delete(self,entry_id):
         try:
             Entry.delete_entry(entry_id)

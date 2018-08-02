@@ -70,13 +70,13 @@ class Entry():
 
         
 
-    def save_entry_to_db(self):
+    def save_entry_to_db(title,body,user):
         try:
             db.cursor.execute(
                 """
                 INSERT INTO entries(title, body, created_by)
                 VALUES(%s,%s,%s)""",
-                (self.title, self.body,self.user_id))
+                (title, body,user))
             # db.CloseConnection()
 
             
