@@ -16,9 +16,6 @@ class User():
         self.email = email
         self.password = password 
 
-  
-        
- 
 
 
     def save_to_db(self):
@@ -47,15 +44,15 @@ class User():
         db.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         # db.cursor.commit()
         rows = db.cursor.fetchone()
-
                
         return rows
         
-
+    # generate hash
     @staticmethod
     def generate_hash(password):
         return sha256.hash(password)
-    
+
+    # compare user password with hashed password 
     @staticmethod
     def verify_hash(password, hash):
         return sha256.verify(password, hash)
@@ -67,9 +64,8 @@ class Entry():
         self.title = title
         self.body = body
         self.user_id= user_id
-
-        
-
+     
+    #   save entry to db
     def save_entry_to_db(title,body,user):
         try:
             db.cursor.execute(
@@ -77,18 +73,14 @@ class Entry():
                 INSERT INTO entries(title, body, created_by)
                 VALUES(%s,%s,%s)""",
                 (title, body,user))
-            # db.CloseConnection()
-
-            
-                       
+               # db.CloseConnection()                    
             return 'created entry succesfully'
         
-
         except Exception as e:
             print(e)
             return {'message': 'Something went wrong'}, 500
 
-
+    # get all entries
     @staticmethod
     def get_all():
         try:
@@ -97,16 +89,14 @@ class Entry():
             # db.cursor.commit()
             rows = db.cursor.fetchall()
 
-
             return rows
         
-
         except Exception as e:
             print(e)
             return {'message': 'Something went wrong'}, 500
 
 
-
+    # get each entry
     @staticmethod
     def get_each(entry_id):
         try:
@@ -118,13 +108,12 @@ class Entry():
             return rows
 
         
-
         except Exception as e:
             print(e)
             return {'message': 'Something went wrong'}, 500
                 
 
-
+    # modify an entry
     @staticmethod
     def edit_entry(title,body,entry_id):
         try:
@@ -135,11 +124,11 @@ class Entry():
             return 'entry edited'
 
         
-
         except Exception as e:
             print(e)
             return {'message': 'Something went wrong'}, 500
 
+    # delete an entry
     @staticmethod
     def delete_entry(entry_id):
         try:
@@ -154,6 +143,11 @@ class Entry():
         except Exception as e:
             print(e)
             return {'message': 'Something went wrong'}, 500
+
+    # get each entry
+    # @staticmethod
+    # def verify_user(entry_id,user_id):
+    #     return 2
 
 
 # class RevokedTokenModel():

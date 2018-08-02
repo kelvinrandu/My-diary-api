@@ -33,6 +33,8 @@ class UserRegistration(Resource):
         username = args.get('username').strip()
         email = args.get('email').strip()
 
+
+
         # validate user input
         email_format = re.compile(
         r"(^[a-zA-Z0-9_.-]+@[a-zA-Z-]+\.[.a-zA-Z-]+$)")
@@ -40,17 +42,17 @@ class UserRegistration(Resource):
 
 
         if not email:
-            return {'message': 'email can not be empty'},400
+            return make_response(jsonify({'message': 'email can not be empty'}),400)
         if not password:
-            return {'message': 'password cannot be empty'},400
+            return make_response(jsonify({'message': 'password cannot be empty'}),400)
         if not username:
-            return {'message': 'username cannot be empty'},400
+            return make_response(jsonify({'message': 'username cannot be empty'}),400)
         if len(password) < 6:
-            return jsonify({'message' : 'Password should be atleast 6 characters'}), 400
+            return make_response(jsonify({'message' : 'Password should be atleast 6 characters'}), 400)
         if not (re.match(email_format, email)):
-            return {'message' : 'Invalid email'}, 400
+            return make_response(jsonify({'message' : 'Invalid email'}), 400)
         if not (re.match(username_format, username)):
-            return jsonify({'message' : 'Please input only characters and numbers'}), 400
+            return make_response(jsonify({'message' : 'Please input only characters and numbers'}), 400)
 
             
 
@@ -169,10 +171,12 @@ class AllEntries(Resource):
     
 
     def get(self):
+        #user_id from session
         
         if Entry.get_all() :
             rows=  Entry.get_all()
             return jsonify({'message':rows })
+        return jsonify({'message':'no entries yet'})
         
 
 # fetch each diary entry
@@ -200,6 +204,13 @@ class PostEntry(Resource):
         body = args.get('body').strip()
         user = args.get('user_id')
 
+        if not body:
+            return make_response(jsonify({'message': 'body can not be empty'}),400)
+        if not user:
+            return make_response(jsonify({'message': 'user id cannot be empty'}),400)
+        if not title:
+            return make_response(jsonify({'message': 'title cannot be empty'}),400)
+
         new_entry = Entry(
             title=title ,
             body=body,
@@ -224,10 +235,16 @@ class PostEntry(Resource):
 
 # modify an  entry
 class EditEntry(Resource):
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('title', required=True, help='title cannot be blank', type=str)
+    parser.add_argument('body', required=True, help='body cannot be blank', type=str)
+
+
     @jwt_required
     def put(self,entry_id):
 
-        args =  PostEntry.parser.parse_args()
+        args =  EditEntry.parser.parse_args()
         title = args.get('title').strip()
         body = args.get('body').strip()
         entry_id = entry_id

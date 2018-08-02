@@ -17,8 +17,10 @@ Minimum requirements needed to run this application include;
 ## RUNNING THE APPLICATION
 - clone [this](https://github.com/kelvinrandu/My-diary-api/tree/master) repository
 - navigate to the project directory
+- install virtual environment
+```virtualenv -p python3 venv ```
 - activate the virtual environment
-``` $ source .env ```
+```$ source venv/bin/activate```
 - install dependencies needed for the project to run
 ``` $ pip install -r requirements.txt ```
 - install flask
