@@ -1,12 +1,9 @@
 import datetime
-
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
 from flask import make_response, jsonify
 from database import DatabaseConnect
 from psycopg2 import sql
 from psycopg2 import connect
-
+from passlib.hash import pbkdf2_sha256 as sha256
 
 db = DatabaseConnect()
 
@@ -18,7 +15,7 @@ class User():
         self.username = username
         self.email = email
         self.password = password 
-        self.cursor = db.cursor
+
   
         
  
@@ -26,15 +23,14 @@ class User():
 
     def save_to_db(self):
         try:
-            self.cursor.execute(
+            db.cursor.execute(
                 """
                 INSERT INTO users(name, email, password)
                 VALUES(%s,%s,%s)""",
                 (self.username, self.email,self.password))
+            # db.CloseConnection()
 
             
-            
- 
                        
             return 'register succesful'
         
@@ -52,92 +48,113 @@ class User():
         # db.cursor.commit()
         rows = db.cursor.fetchone()
 
-        
+               
         return rows
+        
 
-
-# generate hash for user
     @staticmethod
     def generate_hash(password):
-        hashed_password = generate_password_hash(password, method='sha256')
-        return  hashed_password
-
-# compare user password and hashed password from db
+        return sha256.hash(password)
+    
     @staticmethod
     def verify_hash(password, hash):
-        return 2
-
+        return sha256.verify(password, hash)
 
 
 class Entry():
 
-    def __init__(self):
+    def __init__(self,title,body,user_id):
         self.title = title
         self.body = body
         self.user_id= user_id
-        self.cursor = db.cursor
+
         
 
-# save to database
-    @classmethod
-    def create_entry(cls,title, body):
-        #attempt to enter entry into database
+    def save_entry_to_db(title,body,user):
         try:
-            self.cursor.execute(
+            db.cursor.execute(
                 """
-                INSERT INTO entrie(title, body, user_id)
+                INSERT INTO entries(title, body, created_by)
                 VALUES(%s,%s,%s)""",
-                (self.title, self.body,self.user_id))
+                (title, body,user))
+            # db.CloseConnection()
+
+            
                        
-            return 'entry added successfuly'
+            return 'created entry succesfully'
         
 
-        except:
-            print ("ran into trouble adding entry ")
-
-    @staticmethod
-    def get_all(user_id):
-        
-        db.cursor.execute("""SELECT * FROM entries WHERE user_id='{}' """.format(user_id))
-        # db.cursor.commit()
-        entries = db.cursor.fetchone()
-        
-        return entries
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
 
 
     @staticmethod
-    def get_each(user_id,entry_id):
+    def get_all():
+        try:
+      
+            db.cursor.execute("""SELECT * FROM entries  """)
+            # db.cursor.commit()
+            rows = db.cursor.fetchall()
+
+
+            return rows
+        
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
+
+
+
+    @staticmethod
+    def get_each(entry_id):
+        try:
+      
+            db.cursor.execute("""SELECT * FROM entries WHERE id='{}' """.format(entry_id))
+            # db.cursor.commit()
+            rows = db.cursor.fetchall()
+        
+            return rows
+
+        
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
                 
-        db.cursor.execute("""SELECT * FROM entries WHERE id='{}' """.format(entry_id))
-        # db.cursor.commit()
-        entry = db.cursor.fetchone()
-        
-        return entry
 
 
-    # @staticmethod
-    # def edit_entry(user_id,entry_id):
+    @staticmethod
+    def edit_entry(title,body,entry_id):
+        try:
+      
+            db.cursor.execute("""UPDATE entries  SET title='{}', body='{}' WHERE id='{}' """.format(title,body,entry_id))
+            # db.cursor.commit()
         
-    #     self.cursor.execute(
-    #         """
-    #         INSERT INTO entries (name, email,password)
-    #         VALUES (%s , %s, %s)
-    #         """,
-    #         (da, data['email'], data['password'])
-    #     )
-    #     return 'entry saved'
+            return 'entry edited'
 
-    # @staticmethod
-    # def delete_entry(user_id,entry_id):
         
-    #     self.cursor.execute(
-    #         """
-    #         INSERT INTO entries (name, email,password)
-    #         VALUES (%s , %s, %s)
-    #         """,
-    #         (da, data['email'], data['password'])
-    #     )
-    #     return 'entry saved'
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
+
+    @staticmethod
+    def delete_entry(entry_id):
+        try:
+      
+            db.cursor.execute("""DELETE FROM entries WHERE id='{}' """.format(entry_id))
+            # db.cursor.commit()
+        
+            return 'entry deleted succesfully'
+
+        
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
+
 
 # class RevokedTokenModel():
     
