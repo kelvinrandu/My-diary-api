@@ -1,17 +1,17 @@
+
 from flask import Flask, jsonify,request
 from flask_restful import Api
-
-# from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 api = Api(app)
 
 
-# app.config['JWT_SECRET_KEY'] = 'ghasfksfgksrhskh',
-# app.config['JWT_BLACKLIST_ENABLED'] = True ,
-# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+app.config['JWT_SECRET_KEY'] = 'ghasfksfgksrhskh',
+app.config['JWT_BLACKLIST_ENABLED'] = True ,
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
-# jwt = JWTManager(app)
+jwt = JWTManager(app)
 
 # resources
 import  models, resources

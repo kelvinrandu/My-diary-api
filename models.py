@@ -18,7 +18,7 @@ class User():
         self.username = username
         self.email = email
         self.password = password 
-        self.cursor = db.cursor
+
   
         
  
@@ -26,15 +26,14 @@ class User():
 
     def save_to_db(self):
         try:
-            self.cursor.execute(
+            db.cursor.execute(
                 """
                 INSERT INTO users(name, email, password)
                 VALUES(%s,%s,%s)""",
                 (self.username, self.email,self.password))
+            db.CloseConnection()
 
             
-            
- 
                        
             return 'register succesful'
         
@@ -51,8 +50,8 @@ class User():
         db.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         # db.cursor.commit()
         rows = db.cursor.fetchone()
-
-        
+        db.CloseConnection()
+               
         return rows
 
 
