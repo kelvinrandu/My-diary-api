@@ -61,7 +61,7 @@ ans a snip of the response upon successful request
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/geteach-api.png)
 
 - post an entry into my diary
-![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post-api.png) 
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/postapi.png) 
 
 - modify a single diary entry  
 ![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/edit.png)
