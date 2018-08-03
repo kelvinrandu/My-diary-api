@@ -5,10 +5,12 @@ A restful app intended to communicate using api endpoints
 ## DESCRIPTION
 My-diary-api is a restful api intended to communicate with a front end of your choice using various api endpoints.
 The api endpoints are meant to do the following
-- post entries to my dictionary
-- fetch entries from my dictionary
-- delete an  entry from my dictionary
-- modify an entry from my dictionary
+- register a user
+- login a user
+- post entries 
+- fetch entries 
+- delete an  entry 
+- modify an entry 
 
 ## REQUIREMENTS
 Minimum requirements needed to run this application include;
@@ -45,19 +47,24 @@ Postman was the main application used in test the endpoints using the routes pro
 ans a snip of the response upon successful request 
 
 - login
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/login-api.png)
 
 - register
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/register-api.png)
 
 - fetch all  diary entries
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/getall.png)
 
 - fetch a single diary entry
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/geteach-api.png)
 
-- post an entry into my diary 
+- post an entry into my diary
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/ch-add-readme-159255344/images/post-api.png) 
 
 - modify a single diary entry  
-
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/edit.png)
 - delete an entry from my diary
-
+![alt text](https://github.com/kelvinrandu/My-diary-api/blob/develop/images/api/delete.png)
 
 
 ## RUN TEST
