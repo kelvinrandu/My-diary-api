@@ -22,7 +22,7 @@ class SignInTests(BaseTests):
 
     def test_successful_login(self):
         """ Test successful login """
-        data = json.dumps({"email": "test@gmail", "password":"123456"})
+        data = json.dumps({"email": "randukelvin@gamil", "password":"12345678"})
         response = self.client().post('/api/v1/login', data=data, content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
@@ -39,9 +39,5 @@ class SignInTests(BaseTests):
         response = self.client().post('/api/v1/login', data=data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
-    def test_invalid_email(self):
-        """ Test for wrong email format """
-        data = json.dumps({"email": "testgmail", "password":"123456"})
-        response = self.client().post('/api/v1/login', data=data, content_type='application/json')
-        self.assertEqual(response.status_code, 200)
+
 
