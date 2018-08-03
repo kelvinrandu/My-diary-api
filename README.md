@@ -32,15 +32,22 @@ Minimum requirements needed to run this application include;
 
 | Methods        | Url          | Description |
 | ------------- |:-------------:| -----:|
-| GET     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries           |  Fetches all diary entries |           
-| GET     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |  Fetches a single diary entry    |
-| POST    | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries           |  Creates a new diary entry       |
-| PUT     | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |   Modifies an entry              |
-| DELETE  | https://my-diary-api-endpoints.herokuapp.com/api/v1/entries/<int:id>  |   Deletes an entry from my Diary |
+| POST   | https://mydiary-api-v1.herokuapp.com/api/v1/login           |  login                            | 
+| POST   | https://mydiary-api-v1.herokuapp.com/api/v1/register           |  register                           | 
+| GET     | https://mydiary-api-v1.herokuapp.com/api/v1/entries           |  Fetches all diary entries |           
+| GET     | https://mydiary-api-v1.herokuapp.com/api/v1/entries/<int:id>  |  Fetches a single diary entry    |
+| POST    | https://mydiary-api-v1.herokuapp.com/api/v1/entries           |  Creates a new diary entry       |
+| PUT     | https://mydiary-api-v1.herokuapp.com/api/v1/entries/<int:id>  |   Modifies an entry              |
+| DELETE  | https://mydiary-api-v1.herokuapp.com/api/v1/entries/<int:id>  |   Deletes an entry from my Diary |
 
 ## TESTING THE APP
 Postman was the main application used in test the endpoints using the routes provided below
 ans a snip of the response upon successful request 
+
+- login
+
+- register
+
 - fetch all  diary entries
 
 - fetch a single diary entry
@@ -55,3 +62,4 @@ ans a snip of the response upon successful request
 
 ## RUN TEST
 To run unitests type the code below in your terminal in your root folder
+``` $ pytest ```
