@@ -18,7 +18,7 @@ Minimum requirements needed to run this application include;
 - [python3](https://www.python.org/getit/)
 
 ## RUNNING THE APPLICATION
-- clone [this](https://github.com/kelvinrandu/My-diary-api/tree/master) repository
+- clone [this](https://github.com/kelvinrandu/My-diary-api.git) repository
 - navigate to the project directory
 - install virtual environment
 ```virtualenv -p python3 venv ```
