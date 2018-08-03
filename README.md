@@ -16,6 +16,7 @@ The api endpoints are meant to do the following
 Minimum requirements needed to run this application include;
 - [pip](https://packaging.python.org/tutorials/installing-packages/)
 - [python3](https://www.python.org/getit/)
+- [postgres](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 
 ## RUNNING THE APPLICATION
 - clone [this](https://github.com/kelvinrandu/My-diary-api.git) repository
@@ -28,6 +29,7 @@ Minimum requirements needed to run this application include;
 ``` $ pip install -r requirements.txt ```
 - install flask
 ``` $ pip install flask```
+- create database in postgres and configure with details in database.py
 - run the application
 ``` $ flask run ```
 ## API ROUTES
