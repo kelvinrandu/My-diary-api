@@ -19,7 +19,7 @@ pluggy==0.7.1
 psycopg2-binary==2.7.5
 py==1.5.4
 py-bcrypt==0.4
-PyJWT==1.6.4
+PyJWT==2.4.0
 pytest==3.7.0
 pytz==2018.5
 requests==2.19.1
